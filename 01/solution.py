@@ -1,4 +1,4 @@
-# advent of code day 1 solution
+# Advent of Code day 1 solution
 from enum import Enum
 
 
