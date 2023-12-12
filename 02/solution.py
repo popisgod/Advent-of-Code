@@ -1,4 +1,4 @@
-# Advent of Code day 2 solution
+# Advent of Code solution day 02
 import re
 import math 
 
