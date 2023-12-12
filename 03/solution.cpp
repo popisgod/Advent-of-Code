@@ -53,7 +53,7 @@ int main(){
     std::vector<int> validNumbers; 
 
 
-    std::ifstream  input(".\\03\\input.txt");
+    std::ifstream  input("03\\input.txt");
     if (!input.is_open()) {
         std::cerr << "Error: Unable to open file!" << std::endl;
         return 1; // Return an error code to indicate failure
@@ -69,8 +69,8 @@ int main(){
     input.close();
 
  
-    for(int i = 0; i < engineSchematic.size(); i++){   
-        for(int j = 0; j < engineSchematic[i].size(); j++){
+    for(int i = 0; i < engineSchematic.size(); ++i){   
+        for(int j = 0; j < engineSchematic[i].size(); ++j){
             
             if(isdigit(engineSchematic[i][j])){
                 if(number == ""){
