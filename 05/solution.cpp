@@ -23,7 +23,7 @@ int main(){
     Entry entry; 
     std::vector<Entry> EntryVector; 
     std::vector<std::vector<Entry>> conversionVector; 
-    std::ifstream input("Z:\\Ron\\Cyber\\Advent-Of-Code\\Advent-of-Code\\05\\input.txt");
+    std::ifstream input("05\\input.txt");
 
     // extract the seed string 
     std::getline(input, line, ':');
