@@ -94,7 +94,9 @@ struct game {
     bool operator<(const game &other) const{         
         std::map<int,int> countCards[2];
         int maxCount[2] = {0, 0};
+        int wildCardCount[2] = {0, 0}; 
         int mostCommon[2]; 
+        int countCardsSize[2]; 
 
         for(auto const &card : hand){
             countCards[0][card]++; 
@@ -106,34 +108,42 @@ struct game {
 
         for (int i = 0; i < 2; ++i) {
             for (const auto &pair : countCards[i]) {
+                if (pair.first == 1 && pair.second != 5) {
+                    wildCardCount[i] += pair.second;
+                    continue;
+                }
                 maxCount[i] = std::max(maxCount[i], pair.second);
             }
+
+                maxCount[i] += wildCardCount[i];
+                if (wildCardCount[i] > 0){
+                    countCardsSize[i] = countCards[i].size() - 1; 
+                } 
+                else {
+                    countCardsSize[i] = countCards[i].size();
+                }
         }
 
         if (maxCount[0] == maxCount[1]){
 
             // FULL HOUSE 
-            if (countCards[0].size() == 2 && maxCount[0] == 3){
-                if (!(countCards[1].size() == 2))
+            if (countCardsSize[0] == 2 && maxCount[0] == 3){
+                if (!(countCardsSize[1] == 2))
                     return false;
-                //std::cout << hand.getHand() << std::endl;
             }
-            if (countCards[1].size() == 2 && maxCount[1] == 3){
-                if (!(countCards[0].size() == 2))
+            if (countCardsSize[1] == 2 && maxCount[1] == 3){
+                if (!(countCardsSize[0] == 2))
                     return true;
-                //std::cout << other.hand.getHand() << std::endl;
             }
 
             //  TWO PAIR
-            if (countCards[0].size() == 3 && maxCount[0] == 2){
-                if (!(countCards[1].size() == 3))
+            if (countCardsSize[0] == 3 && maxCount[0] == 2){
+                if (!(countCardsSize[1] == 3))
                     return false;
-                //std::cout << hand.getHand() << std::endl;
             }
-            if (countCards[1].size() == 3 && maxCount[1] == 2){
-                if (!(countCards[0].size() == 3))
+            if (countCardsSize[1]== 3 && maxCount[1] == 2){
+                if (!(countCardsSize[0] == 3))
                     return true;
-                //std::cout << other.hand.getHand() << std::endl;
             }            
 
 
@@ -174,7 +184,6 @@ int main() {
     std::sort(games.begin(), games.end());
     for(long long i = 0; i < games.size(); ++i) { 
         sum += games[i].bid * (i + 1);
-        std::cout << i << " " << games[i].hand.getHand() << std::endl;
     }
 
     std::cout << "the sum of all of the bids by their ranking is " << sum << std::endl; 
