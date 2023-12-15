@@ -1,4 +1,4 @@
-// Advent of Code solution day 02
+// Advent of Code solution day 06
 #include <iostream>
 #include <fstream>
 #include <sstream> 
