@@ -6,6 +6,7 @@
 #include <string>
 #include <unordered_map> 
 #include <array>
+#include <numeric>
 
 int main(){ 
     std::string line;
@@ -18,13 +19,12 @@ int main(){
         return 1;
     }
     
-    // Extract right-left directions from input 
     std::getline(input, line);
     std::istringstream lineStream(line);
     while(lineStream >> direction) {
         directions.push_back(direction); 
     }
-    
+
     std::getline(input, line); 
     while(std::getline(input, line) && !line.empty()){
         
@@ -32,21 +32,29 @@ int main(){
                                     line.substr(line.find(',') + 2, 3)};
 
     }  
-    
-    int steps = 0; 
-    std::string head = "AAA"; 
-    while (head != "ZZZ"){
-        if (directions[steps % directions.size()] == 'R'){
-            head = paths[head][1];
+
+    std::vector<std::string> heads;
+    for (auto &pair : paths){
+        if(pair.first[2] == 'A'){
+            heads.push_back(pair.first); 
         }
-        else { 
-            head = paths[head][0];
-        }
-        steps++; 
     }
 
-    std::cout << "number of steps: " << steps << std::endl;
+    std::vector<int> steps; 
+    for (int i = 0; i < heads.size(); ++i){
+        steps.push_back(0); 
+        while (heads[i][2] != 'Z') {
+            if (directions[steps[i] % directions.size()] == 'R') {
+            heads[i] = paths[heads[i]][1];
+        } else {
+            heads[i] = paths[heads[i]][0];
+        }
+        steps[i]++;
+        }
+    }
 
-
+    long long stepsMinimum; 
+    stepsMinimum = std::accumulate(steps.begin(), steps.end(), 1LL, [](long long x, long long y){return std::lcm(x, y);});
+    std::cout << "number of steps: " << stepsMinimum << std::endl;
     return 0; 
 }
