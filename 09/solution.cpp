@@ -4,7 +4,9 @@
 #include <sstream> 
 #include <vector> 
 #include <string> 
+#include <algorithm>
 
+namespace myAlgoritms{
 
 template<typename InputIt ,typename UnaryPredicate> 
 bool all_of(InputIt first, InputIt last, UnaryPredicate pred){
@@ -12,6 +14,9 @@ bool all_of(InputIt first, InputIt last, UnaryPredicate pred){
         if (!pred(*first)) return false; 
     }
     return true; 
+}
+
+
 }
 
 int nextNumber(std::vector<int> &seq){
@@ -22,7 +27,7 @@ int nextNumber(std::vector<int> &seq){
         
         
     }
-    if (all_of(difSeq.begin(), difSeq.end(), [](int i) {return i == 0;})){
+    if (myAlgoritms::all_of(difSeq.begin(), difSeq.end(), [](int i) {return i == 0;})){
         return seq.back(); 
     }
     return nextNumber(difSeq) + seq.back() ;
@@ -35,7 +40,7 @@ int PervNumber(std::vector<int> &seq){
         difSeq.push_back(seq[i+1] - seq[i]);  
         
     }
-    if (all_of(difSeq.begin(), difSeq.end(), [](int i) {return i == 0;})){
+    if (myAlgoritms::all_of(difSeq.begin(), difSeq.end(), [](int i) {return i == 0;})){
         return seq.front(); 
     }
     return seq.front() - PervNumber(difSeq) ;
