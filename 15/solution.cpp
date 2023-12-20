@@ -44,9 +44,11 @@ int main(){
     }
 
     for (auto &str: stringVector) {
-        int boxNumber = hash(str.substr(0,2));
-        lens newLens = createLens(str.substr(0,2), (int)(str[3]- '0'));
-        if (str[2] == '=') {
+
+        if (str.find('=') != std::string::npos) {
+            int boxNumber = hash(str.substr(0,str.find('=')));
+            lens newLens = createLens(str.substr(0,str.find('=')), (int)(str.back() - '0'));
+
             // label exists
             if (HASHMAP.find(boxNumber) != HASHMAP.end()) {
                 std::vector<lens> &boxLens = HASHMAP[boxNumber];
@@ -64,6 +66,9 @@ int main(){
             }
         }
         else {
+            int boxNumber = hash(str.substr(0,str.find('-')));
+            lens newLens = createLens(str.substr(0,str.find('-')), (int)(str.back() - '0'));
+
             if (HASHMAP.find(boxNumber) != HASHMAP.end()) {
                 std::vector<lens> &boxLens = HASHMAP[boxNumber];
                 auto it = std::find_if(boxLens.begin(), boxLens.end(),
