@@ -12,15 +12,16 @@ int main(){
     std::ifstream  input(".\\11\\input.txt");
     std::vector<std::vector<char>> universe;
 
+
     while(std::getline(input, line)){
         char imageLocation;
         std::istringstream lineStream(line);
 
         universe.push_back(std::vector<char> ());
         while (lineStream >> imageLocation) {
-            universe.back().push_back(imageLocation);
-        }
+        universe.back().push_back(imageLocation);
     }
+}
 
     for (int i = 0; i < universe.size(); ++i)
         if (std::all_of(universe[i].begin(), universe[i].end(), [](int i) { return i == '.'; })){
@@ -43,8 +44,6 @@ int main(){
         }
     }
 
-
-
-
+    std::cout << "orad is a google fanboy" << std::endl;
     return 0;
 }
