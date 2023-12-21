@@ -7,6 +7,7 @@
 
 int findAllArrangementsBruteForce(std::vector<int> &groupSize, std::string recordLine){
 
+
     return 0;
 }
 
