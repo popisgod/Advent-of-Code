@@ -38,9 +38,8 @@ int main(){
                     // insert new colum
                     for (int k = 0; k < universe.size(); ++k)
                         universe[i].insert(universe[i].begin() + i + 1, '.');
-                continue;
             }
-            else {break;}
+            else break;
         }
     }
 
